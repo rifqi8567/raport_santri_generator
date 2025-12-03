@@ -1554,38 +1554,68 @@ def create_tahsin_tahfidz_page(
         )
         current_y -= row_height
 
-        # TAHSIN header
+
+       # TAHSIN header
         c.setFillColor(colors.lightgrey)
         c.rect(table_x, current_y - row_height, col_no, row_height, fill=1)
         c.rect(table_x + col_no, current_y - row_height, col_mapel, row_height, fill=1)
         c.setFillColor(colors.black)
         c.setFont("Times-Bold", 13)
-        c.drawString(table_x + col_no + 5, current_y - row_height / 2 - 3, "TAHSIN")
+        draw_centered_text(c, "TAHSIN", table_x + col_no, current_y - row_height, col_mapel, row_height, bold=True)
 
         x_pos = table_x + col_no + col_mapel
         for header, w in zip(sub_headers, col_widths):
             c.setFillColor(colors.lightgrey)
             c.rect(x_pos, current_y - row_height, w, row_height, fill=1)
             c.setFillColor(colors.black)
-            draw_centered_text(
-                c, header, x_pos, current_y - row_height, w, row_height, bold=True
-            )
+            draw_centered_text(c, header, x_pos, current_y - row_height, w, row_height, bold=True)
             x_pos += w
         current_y -= row_height
 
         # Data TAHSIN
         if not student_data.empty:
             tahsin_row = student_data.iloc[0]
+            
+            # Nomor 1
             c.rect(table_x, current_y - row_height, col_no, row_height)
-            draw_centered_text(
-                c, "1", table_x, current_y - row_height, col_no, row_height
-            )
+            draw_centered_text(c, "1", table_x, current_y - row_height, col_no, row_height)
+            
+            # Deskripsi dari Excel dengan Paragraph untuk auto-wrap
             c.rect(table_x + col_no, current_y - row_height, col_mapel, row_height)
-            c.drawString(
-                table_x + col_no + 5,
-                current_y - row_height / 2 - 3,
-                str(tahsin_row.get("Tahsin_Surah", "")),
+            tahsin_desc = str(tahsin_row.get("Tahsin_Surah", ""))
+            
+            # Import Paragraph dari reportlab
+            from reportlab.platypus import Paragraph
+            from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+            from reportlab.lib.enums import TA_LEFT
+            
+            # Buat style untuk paragraph
+            styles = getSampleStyleSheet()
+            custom_style = ParagraphStyle(
+                'CustomStyle',
+                parent=styles['Normal'],
+                fontName='Times-Roman',
+                fontSize=10,
+                leading=12,
+                alignment=TA_LEFT,
+                spaceAfter=0,
+                spaceBefore=0,
             )
+            
+            # Buat paragraph dengan auto-wrap
+            para = Paragraph(tahsin_desc, custom_style)
+            para_width = col_mapel - 10
+            para_height = row_height - 4
+            
+            # Wrap and draw paragraph
+            w, h = para.wrap(para_width, para_height)
+            para.drawOn(
+                    c,
+                    table_x + col_no + 5,
+                    current_y - row_height + (row_height - h) / 2
+                )
+
+            # Nilai-nilai TAHSIN dari Excel
             tahsin_vals = [
                 format_score(tahsin_row.get("Tahsin_KKM", "")),
                 format_score(tahsin_row.get("Tahsin_Kelancaran", "")),
@@ -1593,23 +1623,22 @@ def create_tahsin_tahfidz_page(
                 format_score(tahsin_row.get("Tahsin_Makhroj", "")),
                 format_score(tahsin_row.get("Tahsin_Nilai", "")),
             ]
-
+            
             x_pos = table_x + col_no + col_mapel
+            c.setFont("Times-Roman", 10)
             for v, w in zip(tahsin_vals, col_widths):
                 c.rect(x_pos, current_y - row_height, w, row_height)
-                draw_centered_text(
-                    c, str(v), x_pos, current_y - row_height, w, row_height
-                )
+                draw_centered_text(c, str(v), x_pos, current_y - row_height, w, row_height)
                 x_pos += w
             current_y -= row_height
-
         # TAHFIDZ header
         c.setFillColor(colors.lightgrey)
         c.rect(table_x, current_y - row_height, col_no, row_height, fill=1)
         c.rect(table_x + col_no, current_y - row_height, col_mapel, row_height, fill=1)
         c.setFillColor(colors.black)
         c.setFont("Times-Bold", 13)
-        c.drawString(table_x + col_no + 5, current_y - row_height / 2 - 3, "TAHFIDZ")
+        draw_centered_text(c, "TAHFIDZ", table_x + col_no, current_y - row_height, col_mapel, row_height, bold=True)
+
 
         x_pos = table_x + col_no + col_mapel
         for header, w in zip(sub_headers, col_widths):
