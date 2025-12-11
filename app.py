@@ -155,29 +155,29 @@ def draw_centered_text(c, text, x, y, w, h, font="Times-Roman", size=10, bold=Fa
     c.drawString(x + (w - text_width) / 2, y + (h - size) / 2 + 3, text)
 
 
-def draw_watermark_logo(c, width, height):
-    """Draw watermark logo in center with low opacity"""
-    bg_logo_path = os.path.join(STATIC_FOLDER, "logo_bg.png")
-    if os.path.exists(bg_logo_path):
-        try:
-            # Save current graphics state
-            c.saveState()
-            # Set low opacity for watermark
-            c.setFillAlpha(0.12)
-            bg_logo = ImageReader(bg_logo_path)
-            bg_size = 280
-            c.drawImage(
-                bg_logo,
-                width / 2 - bg_size / 2,
-                height / 2 - bg_size / 2,
-                width=bg_size,
-                height=bg_size,
-                mask="auto",
-            )
-            # Restore graphics state
-            c.restoreState()
-        except:
-            pass
+# def draw_watermark_logo(c, width, height):
+#     """Draw watermark logo in center with low opacity"""
+#     bg_logo_path = os.path.join(STATIC_FOLDER, "logo_bg.png")
+#     if os.path.exists(bg_logo_path):
+#         try:
+#             # Save current graphics state
+#             c.saveState()
+#             # Set low opacity for watermark
+#             c.setFillAlpha(0.12)
+#             bg_logo = ImageReader(bg_logo_path)
+#             bg_size = 280
+#             c.drawImage(
+#                 bg_logo,
+#                 width / 2 - bg_size / 2,
+#                 height / 2 - bg_size / 2,
+#                 width=bg_size,
+#                 height=bg_size,
+#                 mask="auto",
+#             )
+#             # Restore graphics state
+#             c.restoreState()
+#         except:
+#             pass
 
 
 def draw_signatures(c, width, height, left_margin, row, wali_kelas_map, nip_map):
@@ -267,7 +267,7 @@ def create_cover_page(c, width, height, nis, nisn, nama, logo_path, school_level
         top_y = height - 80
 
         # Draw watermark logo
-        draw_watermark_logo(c, width, height)
+        # draw_watermark_logo(c, width, height)
 
         # Header title - Enhanced formatting with formal fonts
         c.setFont("Times-Bold", 18)
@@ -434,7 +434,7 @@ def format_score(v):
 def create_data_page(c, width, height, row, school_level):
     """Page 2: Personal Data"""
     try:
-        draw_watermark_logo(c, width, height)
+        # draw_watermark_logo(c, width, height)
 
         # Header
         c.setFillColor(colors.black)
@@ -621,18 +621,18 @@ def create_score_page(c, width, height, row, nilai_df, wali_kelas_map, school_le
         left_margin = 50
 
         # === Background watermark logo ===
-        bg_logo_path = os.path.join(STATIC_FOLDER, "logo_bg.png")
-        if os.path.exists(bg_logo_path):
-            bg_logo = ImageReader(bg_logo_path)
-            bg_size = 300
-            c.drawImage(
-                bg_logo,
-                center_x - bg_size / 2,
-                height / 2 - bg_size / 2,
-                width=bg_size,
-                height=bg_size,
-                mask="auto",
-            )
+        # bg_logo_path = os.path.join(STATIC_FOLDER, "logo_bg.png")
+        # if os.path.exists(bg_logo_path):
+        #     bg_logo = ImageReader(bg_logo_path)
+        #     bg_size = 300
+        #     c.drawImage(
+        #         bg_logo,
+        #         center_x - bg_size / 2,
+        #         height / 2 - bg_size / 2,
+        #         width=bg_size,
+        #         height=bg_size,
+        #         mask="auto",
+        #     )
 
         # === Header logos kiri & kanan ===
         logo_left_path = os.path.join(STATIC_FOLDER, "logo.png")
@@ -1071,18 +1071,18 @@ def create_kompetensi_page(
         left_margin = 50
 
         # === Background watermark logo ===
-        bg_logo_path = os.path.join(STATIC_FOLDER, "logo_bg.png")
-        if os.path.exists(bg_logo_path):
-            bg_logo = ImageReader(bg_logo_path)
-            bg_size = 300
-            c.drawImage(
-                bg_logo,
-                center_x - bg_size / 2,
-                height / 2 - bg_size / 2,
-                width=bg_size,
-                height=bg_size,
-                mask="auto",
-            )
+        # bg_logo_path = os.path.join(STATIC_FOLDER, "logo_bg.png")
+        # if os.path.exists(bg_logo_path):
+        #     bg_logo = ImageReader(bg_logo_path)
+        #     bg_size = 300
+        #     c.drawImage(
+        #         bg_logo,
+        #         center_x - bg_size / 2,
+        #         height / 2 - bg_size / 2,
+        #         width=bg_size,
+        #         height=bg_size,
+        #         mask="auto",
+        #     )
 
         # === Header logos kiri & kanan ===
         logo_left_path = os.path.join(STATIC_FOLDER, "logo.png")
@@ -1411,19 +1411,19 @@ def create_tahsin_tahfidz_page(
             school_header = "SD PESANTREN RABBAANII"
 
         # === Background watermark ===
-        bg_logo_path = os.path.join(STATIC_FOLDER, "logo_bg.png")
-        if os.path.exists(bg_logo_path):
-            try:
-                c.drawImage(
-                    bg_logo_path,
-                    center_x - 150,
-                    height / 2 - 150,
-                    width=300,
-                    height=300,
-                    mask="auto",
-                )
-            except Exception as e:
-                print(f"[DEBUG] Gagal load background: {e}")
+        # bg_logo_path = os.path.join(STATIC_FOLDER, "logo_bg.png")
+        # if os.path.exists(bg_logo_path):
+        #     try:
+        #         c.drawImage(
+        #             bg_logo_path,
+        #             center_x - 150,
+        #             height / 2 - 150,
+        #             width=300,
+        #             height=300,
+        #             mask="auto",
+        #         )
+            # except Exception as e:
+            #     print(f"[DEBUG] Gagal load background: {e}")
 
         # === Header logos ===
         logo_left_path = os.path.join(STATIC_FOLDER, "logo.png")
@@ -1794,19 +1794,19 @@ def create_karakter_page(c, width, height, row, karakter_df=None, wali_kelas_map
         center_x = width / 2
         left_margin = 50
 
-        # === Background watermark logo ===
-        bg_logo_path = os.path.join(STATIC_FOLDER, "logo_bg.png")
-        if os.path.exists(bg_logo_path):
-            bg_logo = ImageReader(bg_logo_path)
-            bg_size = 300
-            c.drawImage(
-                bg_logo,
-                center_x - bg_size / 2,
-                height / 2 - bg_size / 2,
-                width=bg_size,
-                height=bg_size,
-                mask="auto",
-            )
+        # # === Background watermark logo ===
+        # bg_logo_path = os.path.join(STATIC_FOLDER, "logo_bg.png")
+        # if os.path.exists(bg_logo_path):
+        #     bg_logo = ImageReader(bg_logo_path)
+        #     bg_size = 300
+        #     c.drawImage(
+        #         bg_logo,
+        #         center_x - bg_size / 2,
+        #         height / 2 - bg_size / 2,
+        #         width=bg_size,
+        #         height=bg_size,
+        #         mask="auto",
+        #     )
 
         # === Header logos kiri & kanan ===
         logo_left_path = os.path.join(STATIC_FOLDER, "logo.png")
