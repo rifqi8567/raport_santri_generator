@@ -66,6 +66,7 @@ nip_map = {
     "12": "-",
 }
 
+TANGGAL_CETAK = "22 Desember 2025"
 
 def normalize_kelas(kelas):
     """Normalisasi nama kelas supaya konsisten (7A, 10B, 11, 12, dll)."""
@@ -201,7 +202,7 @@ def draw_signatures(c, width, height, left_margin, row, wali_kelas_map, nip_map)
 
     # === Kepala Sekolah ===
     c.setFont("Times-Roman", 11)
-    tanggal_hari_ini = datetime.now().strftime("%d %B %Y")
+    tanggal_hari_ini = TANGGAL_CETAK
     c.drawCentredString(col_x[0], signature_y + 20, f"Bekasi, {tanggal_hari_ini}")
     c.drawCentredString(col_x[0], signature_y, "Kepala Sekolah")
 
